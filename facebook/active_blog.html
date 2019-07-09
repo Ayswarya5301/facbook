@@ -1,0 +1,247 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>facebook</title>
+  <link rel="shortcut icon" href="images/logo.png" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+  hr {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border: 0;
+    border-top: 1px solid #eee;
+}
+  </style>
+  <script>
+    var getsession = JSON.parse(sessionStorage.getItem("loginusers")) ;
+    if(getsession ==null){
+      sessionStorage.removeItem("loginusers");
+      sessionStorage.clear();
+      document.location.href = "login.html";
+      
+    }
+  $(document).ready(function(){
+      var res = JSON.parse(localStorage.getItem('users'));   
+      
+      var result=JSON.parse(res[0]);
+
+    var username=result.Username;
+    var emailid= result.Emailid;
+    var birthcity= result.Birthcity;
+    var currentcity= result.Currentcity;
+    var state= result.State;
+    var country= result.country;
+    var Jobrole= result.Jobrole;
+    var Organization= result.Organization;
+    var School = result.School;
+    var College= result.College;
+
+    $('.uname').text(username);
+    $('.from').text(birthcity);
+    $('.live').text(currentcity);
+    $('.country').text(', '+country);
+    $('.jobrole').text(Jobrole);
+    $('.organization').text(Organization);
+    $('.school').text(School);
+    $('.college').text(College);
+  });
+      
+  function load(){
+
+    var tbClients = localStorage.getItem("activity");//Retrieve the stored data
+            tbClients = JSON.parse(tbClients); //Converts string to object
+            if(tbClients == null) //If there is no data, initialize an empty array
+                tbClients = [];
+		
+            var res = JSON.parse(localStorage.getItem('users'));   
+            var result=JSON.parse(res[0]);
+            var username=result.Username;
+           var count= tbClients.length;
+            count = count -1;
+            
+           
+            for(var i in tbClients){
+              var cli = JSON.parse(tbClients[i]);
+              
+        $("#activityappend").append('<div class="col-md-12 first_div1"><b>'+cli.datemonth+'</b></div><div class="col-md-12 activeblog_text">'+
+                '<div class="media-left"><img src="https://static.xx.fbcdn.net/rsrc.php/v3/yX/r/N4KBGuGdZ2U.png" class="media-object">'+
+                '</div><div class="media-body"><p>'+cli.title+' - '+cli.times+'</p>'+
+                '</div></div>');
+           
+            }
+            
+         
+        } 
+
+  
+
+  
+   
+    function logout(){
+      var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    var months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    var monthsdate = today.getDate() +'   '+months[today.getMonth()];
+
+    var dateTime = date+' '+time;
+    var activity = localStorage.getItem('activity');
+    var activitys = JSON.parse(activity);
+    if(activitys ==null){
+        activitys=[];
+    }
+    
+    var client1 = JSON.stringify({
+            title    : 'Logout',
+            times  : dateTime,
+            datemonth : monthsdate
+            });
+    activitys.push(client1);
+    localStorage.setItem("activity", JSON.stringify(activitys));
+      sessionStorage.removeItem("loginusers");
+      sessionStorage.clear();
+      document.location.href = "login.html";
+      
+    }
+</script>
+</head> 
+<body onload="load()">
+​<div class="container-fluid index_header">
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="col-md-1 col-sm-2 col-xs-2">
+                    <img src="images/fb.png" alt="facbook logo" style="width:30px;height:30px;">
+            </div>
+            <div class="col-md-8 col-sm-8 col-xs-10">
+                    <div class="form-group" style="margin-bottom: 0px;">
+                        <div class="input-group">
+                            <input type="text" class="form-control"
+                                   placeholder="Search" id="inputGroup"/>
+                            <span class="input-group-addon">
+                                <i class="fa fa-search"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <div class="col-md-6 col-xs-12 col-sm-6">
+                <div class="media col-sm-6 col-xs-6 col-md-3">
+                        <div class="media-left">
+                          <img src="images/img_avatar.png" class="media-object img" style="width:30px">
+                        </div>
+                        <div class="media-body">
+                          <h4 class="media-heading uname" style="color:#fff;"></h4>
+                        </div>
+                </div>
+                <div class="col-sm-6 col-xs-6 col-md-9">
+                  <nav class="navbar navbar-inverse">
+                    <div class="container-fluid">
+                      <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>                        
+                        </button>
+                      </div>
+                      <div class="collapse navbar-collapse" id="myNavbar">
+                        <ul class="nav navbar-nav">
+                          <li><a href="index.html">Home</a></li>
+                          <li><a href="#">Create</a></li>
+                          <li><a href="active_log.html">Activity Blog</a></li>
+                          <li><a href="login.html">Logout</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </nav>       
+                </div>
+        </div>
+    </div>
+    <!-----------------------MAIN CONTENT----------------------------->
+    <div class="container">
+      <div class="col-md-3">
+        <div class="filter">Filter</div> 
+        <div class="col-md-12 active_left">
+            <p><i class="fa fa-facebook-official" aria-hidden="true" style="margin-right: 10px;"></i>Activity Log dsf</p>
+            <p><i class="fa fa-calendar-o" aria-hidden="true" style="margin-right: 10px;"></i>Timeline Review&nbsp;&nbsp;<span class="badge1">1</span></p>
+            <p><i class="fa fa-tag" aria-hidden="true" style="margin-right: 10px;"></i>Tag Review&nbsp;&nbsp;<span class="badge1">4</span></p>
+            <p><i class="fa fa-picture-o" aria-hidden="true" style="margin-right: 10px;"></i>Photo Review</p>
+			      <hr>
+            <p><i class="fa fa-user" aria-hidden="true" style="margin-right: 10px;"></i>Posts</p>
+            <p><i class="fa fa-tag" aria-hidden="true" style="margin-right: 10px;"></i>Posts You're Tagged In</p>
+            <p><i class="fa fa-commenting" aria-hidden="true" style="margin-right: 10px;"></i>Posts</p>
+            <p><i class="fa fa-ban" aria-hidden="true" style="margin-right: 10px;"></i> Hidden From Timeline </p>
+            <hr>
+            <p><i class="fa fa-picture-o" aria-hidden="true" style="margin-right: 10px;"></i>Posts & Videos</p>
+            <p><i class="fa fa-thumbs-up" aria-hidden="true" style="margin-right: 10px;"></i>Like and Reactions</p>
+            <p><i class="fa fa-comment" aria-hidden="true" style="margin-right: 10px;"></i>comments</p>
+            <button class="more_btn">more</button>
+            <hr>
+            <p><i class="fa fa-cube" aria-hidden="true" style="margin-right: 10px;"></i>Apps</p>
+            <button class="more_btn">more</button>
+
+			
+            
+          </div>
+      </div>
+      <div class="col-md-8">
+              <div class="col-md-12 first_div" >
+              <div class="col-md-8">
+                <img src="images/logo.png" style="width:35px;"> &nbsp;
+                
+                <b style="color:#3b5998">Active Log</b>
+              </div>
+              
+                
+                <div class="form-group col-md-4" style="margin-bottom: 0px;">
+                  <div class="input-group">
+                      <input type="text" class="form-control search"
+                             placeholder="Search" id="inputGroup"/>
+                      <span class="input-group-addon search_icon">
+                          <i class="fa fa-search"></i>
+                      </span>
+                  </div>
+              </div>
+              </div>
+              <div class="col-md-8 date_heading">JULY 2019</div>
+              <div class="col-md-12 " id="activityappend"></div>
+              
+
+                
+
+      </div>
+
+      
+    </div>
+<!--------------------------------------->
+<script>
+$(document).ready(function(){
+    $(".div2,.div3").hide();
+    $(".p1").click(function(){
+        $(".div1").show();
+        $(".div2").hide();
+        $(".div3").hide();
+    })
+    $(".p2").click(function(){
+        $(".div2").show();
+        $(".div1").hide();
+        $(".div3").hide();
+    })
+    $(".p3").click(function(){
+        $(".div3").show();
+        $(".div1").hide();
+        $(".div2").hide();
+    })
+})
+</script>
+
+</body>
+</html>
+​

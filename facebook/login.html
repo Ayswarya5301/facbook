@@ -1,0 +1,144 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>facebook</title>
+  <link rel="shortcut icon" href="images/logo.png" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script>
+      var getsession = JSON.parse(sessionStorage.getItem("loginusers")) ;
+    if(getsession !=null){
+      
+      document.location.href = "index.html";
+      
+    }
+  </script>
+</head>
+<body>
+​<div class="container-fluid login_header" >
+        <img src="images/facebook.png" style="margin: auto;
+        display: block;
+        height: 45px;"/>
+    </div>
+<div class="col-md-offset-4 col-md-4 col-md-offset-4 col-xs-offset-1 col-xs-10 
+ col-xs-offset-1 col-sm-offset-2 col-sm-8 col-sm-offset-2 main_div">
+        <form>
+            <h4 style="text-align:center;">Login to facebook</h4>
+            <div class="form-group">
+                <label for="email">Email  </label>
+                <input type="email" class="form-control" id="email" placeholder="Enter email " name="email"
+                 style="border-radius: 0px;">
+            </div>
+            <div class="form-group">
+                <label for="pwd">Password</label>
+                <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd" 
+                style="border-radius: 0px;">
+            </div>
+            <div class="checkbox">
+                <label><input type="checkbox" name="remember"> Remember me</label>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="login()">LogIn</button>
+            </form>
+</div>
+<script>
+
+        
+       
+        
+    var userslist2=[{Username    : 'vignesh',Password  : '1234',Emailid  : 'vignesh@gmail.com',Birthcity    : 'chennai',Currentcity  : 'bangalore',
+        State    : 'tamilnadu',country  : 'india',Jobrole    : 'Software Developer',Organization  : 'Enterprise Touch',
+        School    : 'National Higher Sec School',College  : 'Sri sairam',},
+        {Username    : 'vicky',Password  : '1234',Emailid  : 'vicky@gmail.com',Birthcity    : 'chennai',Currentcity  : 'bangalore',
+        State    : 'tamilnadu',country  : 'india',Jobrole    : 'Software Developer',Organization  : 'Enterprise Touch',
+        School    : 'National Higher Sec School',College  : 'Sri sairam',},
+        {Username    : 'vengatesh',Password  : '1234',Emailid  : 'vengat@gmail.com',Birthcity    : 'chennai',Currentcity  : 'bangalore',
+        State    : 'tamilnadu',country  : 'india',Jobrole    : 'Software Developer',Organization  : 'Enterprise Touch',
+        School    : 'National Higher Sec School',College  : 'Sri sairam',},
+        {Username    : 'vengat',Password  : '1234',Emailid  : 'vengatesh@gmail.com',Birthcity    : 'chennai',Currentcity  : 'bangalore',
+        State    : 'tamilnadu',country  : 'india',Jobrole    : 'Software Developer',Organization  : 'Enterprise Touch',
+        School    : 'National Higher Sec School',College  : 'Sri sairam',}];
+       
+    
+
+
+function login() {
+
+var username = document.getElementById('email').value;
+var password = document.getElementById('pwd').value;
+if(username =="" || password==""){
+    if(username ==""){
+        alert('Enter the Email...');
+        return false;
+    }else if(password ==""){
+        alert('Enter the Password...');
+        return false;
+    }
+
+}else{
+
+if(username !=""){
+    var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+
+if (reg.test(username) == false) 
+{
+    alert('Please enter a valid  email address.');
+    
+    
+    return false;
+}
+
+// alert('static');
+for(var j=0;j<userslist2.length;j++){
+    
+    var res=userslist2[j];
+    var storedUserName1 = res.Emailid;
+    var storedPassWord1 = res.Password;
+    if (username == storedUserName1 && password == storedPassWord1) {
+        sessionStorage.setItem("loginusers", JSON.stringify(res));
+        var userslist1=[];
+        var client = JSON.stringify(res);
+
+        userslist1.push(client);
+        localStorage.setItem("users", JSON.stringify(userslist1));
+        // activity log store
+     var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    var months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    var monthsdate = today.getDate() +'   '+months[today.getMonth()];
+
+    var dateTime = date+' '+time;
+    var activity = localStorage.getItem('activity');
+    var activitys = JSON.parse(activity);
+    if(activitys ==null){
+        activitys=[];
+    }
+    
+    var client1 = JSON.stringify({
+            title    : 'Login',
+            times  : dateTime,
+            datemonth : monthsdate
+            });
+    activitys.push(client1);
+    localStorage.setItem("activity", JSON.stringify(activitys));
+        document.location.href = "index.html";
+        return;
+    }
+}
+
+}
+}
+alert('Please enter a valid  email address & Password.');
+return false;
+}
+
+</script>
+</body>
+</html>
+​
